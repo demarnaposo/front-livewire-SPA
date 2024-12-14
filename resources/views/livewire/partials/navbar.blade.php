@@ -13,15 +13,15 @@
                 <li class="nav-item {{ isset($menus[$parent->id]) ? 'dropdown' : '' }}">
                     <a
                         class="nav-link {{ isset($menus[$parent->id]) ? 'dropdown-toggle' : '' }}"
-                        href="{{ $parent->url }}"
+                        href="{{ route('single-page', ['page' => $parent->url ]) }}"
                         {{ isset($menus[$parent->id]) ? 'data-bs-toggle=dropdown' : '' }}
-                    >
+                        wire:navigate>
                         {{ $parent->name }}
                     </a>
                     @if (isset($menus[$parent->id]))
                         <ul class="dropdown-menu">
                             @foreach ($menus[$parent->id] as $child)
-                                <li><a class="dropdown-item" href="{{ $child->url }}">{{ $child->name }}</a></li>
+                                <li><a class="dropdown-item" href="{{ route('single-page', ['page' => $child->url ]) }}" wire:navigate>{{ $child->name }}</a></li>
                             @endforeach
                         </ul>
                     @endif

@@ -12,5 +12,5 @@ use App\Livewire\Home;
 
 Route::get('/{page?}', Home::class)
     ->name('single-page')
-    ->where('page', 'visi-misi|tugas-fungsi'); // Restrict to valid pages
+    ->where('page', 'visi-misi|tugas-fungsi|sejarah'); // Restrict to valid pages
 

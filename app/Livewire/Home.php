@@ -9,11 +9,11 @@ use Livewire\Component;
 class Home extends Component
 {
 
-    public $currentPage = 'home'; // Default page
-    public $pageTitle = 'Home Page'; // Dynamic page title
+    public $currentPage = '/'; // Default page
+    public $pageTitle = 'Home'; // Dynamic page title
 
     // Mount method to initialize the currentPage based on route parameter
-    public function mount($page = 'home')
+    public function mount($page = '/')
     {
         $this->setPage($page);
     }
@@ -27,16 +27,12 @@ class Home extends Component
         $this->pageTitle = match ($page) {
             'visi-misi' => 'Visi Misi',
             'contact' => 'Contact Us',
-            default => 'Home Page',
+            default => 'Beranda',
         };
     }
 
     public function render()
     {
-
-        // $menu = DB::table('menu')->get();
-
-
 
 
         return view('livewire.home');

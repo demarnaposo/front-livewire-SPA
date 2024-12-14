@@ -2,6 +2,10 @@
 
     @if ($currentPage === 'visi-misi')
 
+    @push('title')
+    <title>{{ $pageTitle }}</title>
+    @endpush
+
 <div>
     <section class="module bg-dark-60 about-page-header" data-background="assets/images/about_bg.jpg">
         <div class="container">
@@ -16,13 +20,25 @@
 </div>
 
 
-@elseif ($currentPage === 'tugas-fungsi')
+
+
+@elseif ($currentPage === 'contact')
+
+@push('title')
+<title>{{ $pageTitle }}</title>
+@endpush
+
 
 <div>
     <h2>tugas&fungsi</h2>
 </div>
 
 @else
+
+@push('title')
+<title>{{ $pageTitle }}</title>
+@endpush
+
 
 <section class="home-section home-parallax home-fade home-full-height bg-dark-30" id="home"
    data-background="assets/images/view_kotabogor.jpg">

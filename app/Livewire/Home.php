@@ -2,23 +2,29 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+
 
 
 class Home extends Component
 {
 
-    public $currentPage = '/'; // Default page
-    public $pageTitle = 'Home'; // Dynamic page title
+    use WithPagination;
 
-    // Mount method to initialize the currentPage based on route parameter
+    public $currentPage = '/'; // Default
+    public $pageTitle = 'Kota Bogor'; // Dinamis
+
+    protected $queryString = ['currentPage'];
+
+
     public function mount($page = '/')
     {
         $this->setPage($page);
     }
 
-    // Set the current page and update the title
     public function setPage($page)
     {
         $this->currentPage = $page;
@@ -26,7 +32,8 @@ class Home extends Component
         // Update the page title dynamically
         $this->pageTitle = match ($page) {
             'visi-misi' => 'Visi Misi',
-            'contact' => 'Contact Us',
+            'sejarah' => 'Sejarah Kota Bogor',
+            'lambang-kbr' => 'Lambang Kota Bogor',
             default => 'Beranda',
         };
     }
@@ -34,7 +41,19 @@ class Home extends Component
     public function render()
     {
 
+        Carbon::setLocale('id');
 
-        return view('livewire.home');
+        $berita = DB::table('posts')
+            ->select('judul', 'konten', 'file', 'tgl_publikasi', 'users.name', 'posts.id')
+            ->join('users', 'users.id', '=', 'posts.user_id')
+            ->where('status', '1')
+            ->orderBy('tgl_publikasi', 'desc')
+            ->paginate(3);
+
+            // dd($berita);
+
+        return view('livewire.home', [
+            'berita' => $berita,
+        ]);
     }
 }
